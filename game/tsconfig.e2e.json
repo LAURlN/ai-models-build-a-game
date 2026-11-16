@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": [
+      "ES2023",
+      "DOM"
+    ],
+    "types": [
+      "node"
+    ],
+    "noEmit": true
+  },
+  "include": [
+    "src/engine/**/*.ts",
+    "src/shared/**/*.ts",
+    "src/renderer/global.d.ts",
+    "e2e/**/*.ts",
+    "playwright.config.ts"
+  ]
+}

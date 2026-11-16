@@ -1,0 +1,40 @@
+{
+  "name": "chronicle-tactics",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chronicle Tactics — deterministic combat, Rule IR and SQLite saves",
+  "main": "dist/main/index.cjs",
+  "workspaces": [
+    "sidecar"
+  ],
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit && tsc -p tsconfig.e2e.json --noEmit && npm --workspace=sidecar run typecheck",
+    "pretest": "npm run build",
+    "test": "vitest run",
+    "build": "node scripts/build.mjs",
+    "start": "node scripts/start.mjs",
+    "e2e": "node -e \"require('electron')\" && node scripts/build.mjs && playwright test",
+    "smoke:live": "node scripts/smoke-live.mjs",
+    "dist:win": "npm run build && node scripts/prepare-package.mjs && electron-builder --projectDir dist/app --config ../../electron-builder.yml --win portable --x64 && node scripts/check-release.mjs"
+  },
+  "dependencies": {
+    "effect": "3.22.4",
+    "pixi.js": "8.23.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@electron/asar": "3.4.1",
+    "@playwright/test": "1.65.1",
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.3.0",
+    "electron": "45.3.2",
+    "electron-builder": "26.18.0",
+    "esbuild": "0.28.2",
+    "typescript": "5.9.3",
+    "vite": "8.3.8",
+    "vitest": "5.1.0"
+  }
+}

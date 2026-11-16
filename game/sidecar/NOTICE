@@ -1,0 +1,7 @@
+Chronicle Tactics includes a modified headless fork of T3 Code.
+Upstream: https://github.com/pingdotgg/t3code
+Pinned commit: e72dd5055eb437c93c0b3ddf710246ecbfe1f16e
+Copyright (c) 2026 T3 Tools Inc. Licensed under the MIT License (see LICENSE).
+
+This fork is modified for Chronicle Tactics; it is not an upstream T3 Code release.
+See FORK_PATCHES.md for the source layout, modifications and game-profile behavior.

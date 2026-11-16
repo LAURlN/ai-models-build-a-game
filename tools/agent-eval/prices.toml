@@ -1,0 +1,136 @@
+# Official USD per 1M tokens; accessed 2026-11-14. API equivalents, not bills.
+# Empty = unknown, never free. Input = uncached; reasoning included in output.
+# Write rates retained for research; aggregate creation without TTL split is n/a.
+currency = "USD"
+
+# All Sol standard/write rates: https://developers.openai.com/api/docs/pricing
+# Threshold/multipliers: https://developers.openai.com/api/docs/models/gpt-6.1-sol
+# Accessed 2026-11-14. >272K prompt: 2x input/cache, 1.5x output, full request.
+[models."gpt-6.1-sol"]
+input_per_million = 2.0
+cached_input_per_million = 0.10
+output_per_million = 10.0
+cache_write_30m_per_million = 2.50
+cache_write_12h_per_million = 5.0
+long_context_threshold = 272000
+long_input_multiplier = 2.0
+long_output_multiplier = 1.5
+
+# Priority renamed Fast; both API service_tier names supported.
+# https://openai.com/api-fast-mode/ (2026-11-14)
+# Write rates: https://developers.openai.com/api/docs/pricing (2026-11-14)
+[models."gpt-6.1-sol".tiers.priority]
+input_per_million = 4.0
+cached_input_per_million = 0.20
+output_per_million = 20.0
+cache_write_30m_per_million = 5.0
+cache_write_12h_per_million = 10.0
+[models."gpt-6.1-sol".tiers.fast]
+input_per_million = 4.0
+cached_input_per_million = 0.20
+output_per_million = 20.0
+
+# https://developers.openai.com/api/docs/models/gpt-6.1-terra (2026-11-14)
+[models."gpt-6.1-terra"]
+input_per_million = 1.0
+cached_input_per_million = 0.05
+output_per_million = 5.0
+cache_write_30m_per_million = 1.25
+cache_write_12h_per_million = 2.50
+long_context_threshold = 272000
+long_input_multiplier = 2.0
+long_output_multiplier = 1.5
+# https://openai.com/api-fast-mode/ (2026-11-14)
+# https://developers.openai.com/api/docs/pricing (writes; 2026-11-14)
+[models."gpt-6.1-terra".tiers.priority]
+input_per_million = 2.0
+cached_input_per_million = 0.10
+output_per_million = 10.0
+cache_write_30m_per_million = 2.50
+cache_write_12h_per_million = 5.0
+[models."gpt-6.1-terra".tiers.fast]
+input_per_million = 2.0
+cached_input_per_million = 0.10
+output_per_million = 10.0
+
+# All Hydrogen thinking levels share rates; flat 1M context. Implicit cache only.
+# https://aistudio.google.com/docs/pricing#gemini-4-hydrogen (2026-11-14)
+# https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/ (2026-11-14)
+# Matches dashboard cross-check 1.50 / 0.075 / 7.50. No explicit cache writes.
+[models."gemini-4-hydrogen-high"]
+input_per_million = 1.50
+cached_input_per_million = 0.075
+output_per_million = 7.50
+[models."gemini-4-hydrogen-low"]
+input_per_million = 1.50
+cached_input_per_million = 0.075
+output_per_million = 7.50
+[models."gemini-4-hydrogen-medium"]
+input_per_million = 1.50
+cached_input_per_million = 0.075
+output_per_million = 7.50
+[models."gemini-4-hydrogen-xhigh"]
+input_per_million = 1.50
+cached_input_per_million = 0.075
+output_per_million = 7.50
+
+# All Claude rates: https://platform.claude.com/docs/en/about-claude/pricing
+# Accessed 2026-11-14. Full 1M context at standard rates. Thinking = output.
+[models."claude-fable-5-2"]
+input_per_million = 8.0
+cached_input_per_million = 0.20
+output_per_million = 40.0
+cache_write_5m_per_million = 10.0
+cache_write_1h_per_million = 16.0
+[models."claude-opus-5-5"]
+input_per_million = 4.0
+cached_input_per_million = 0.20
+output_per_million = 20.0
+cache_write_5m_per_million = 5.0
+cache_write_1h_per_million = 8.0
+[models."claude-sonnet-5-5"]
+input_per_million = 2.0
+cached_input_per_million = 0.10
+output_per_million = 10.0
+cache_write_5m_per_million = 2.50
+cache_write_1h_per_million = 4.0
+
+# US monthly list prices, excluding tax; accessed 2026-11-14.
+# Select ACTUAL Pro tier first: unspecified ChatGPT Pro is now ambiguous.
+# https://help.openai.com/en/articles/9793128-about-chatgpt-pro-tiers
+# https://learn.chatgpt.com/docs/pricing (Pro currently has NO five-hour cap)
+[subscriptions.codex]
+plan = "ChatGPT Pro 100 (user's actual tier, confirmed 2026-11-14)"
+monthly_usd = 100.0
+monthly_eur_de = 103.0  # incl. VAT; evidence/agent-eval/PLAN-PRICES.md (2026-11-14)
+windows = ["weekly"]
+
+# https://one.google.com/about/google-ai-plans/ (price; 2026-11-14)
+# https://antigravity.google/docs/plans/ (limits; 2026-11-14)
+[subscriptions.antigravity]
+plan = "Google AI Pro"
+monthly_usd = 19.99
+monthly_eur_de = 21.99  # incl. VAT; annual $199.99 / EUR 219.99
+# User calibration 2026-11-14 (observed in T3 usage panel): $25 of API-priced Gemini tokens = 10% of the WEEKLY limit
+# => weekly limit ~= $250 API-equivalent; subscription/API ratio = (19.99/4.345)/250 = 0.0184 (list) or (11/4.345)/250 = 0.0101 (paid).
+weekly_limit_api_usd_equivalent = 250.0
+windows = ["5h", "weekly"]
+
+# https://support.claude.com/en/articles/8325606-what-is-the-pro-plan (2026-11-14)
+# Five-hour session plus all-model weekly; discretionary model/feature caps.
+[subscriptions.claudeAgent]
+plan = "Claude Pro"
+monthly_usd = 20.0
+monthly_eur_de = 21.42  # incl. VAT; annual $200 / EUR 214.20
+windows = ["5h", "weekly"]
+
+# Weekly-limit API-equivalents (USD of list-priced tokens per week), see evidence/agent-eval/SUBSIDY-RESEARCH.md.
+# Gemini measured by user; others are researched estimates (medium-low / low confidence).
+# subscription_cost = api_cost * (monthly_usd / 4.345) / weekly_limit_api_usd_equivalent
+[weekly_limit_api_usd_equivalent]
+"gemini-4-hydrogen-high" = 78.3    # USER 2026-11-16 better subsidy numbers (Gemini 17x$20, Codex 20x$100, Claude 60x$20 per month); weekly = monthly/4.345. Old: 88.0
+"gpt-6.1-sol" = 460.3    # USER 2026-11-16 better subsidy numbers (Gemini 17x$20, Codex 20x$100, Claude 60x$20 per month); weekly = monthly/4.345. Old: 405.0
+"gpt-6.1-terra" = 460.3    # USER 2026-11-16 better subsidy numbers (Gemini 17x$20, Codex 20x$100, Claude 60x$20 per month); weekly = monthly/4.345. Old: 405.0
+"claude-opus-5-5" = 276.2    # USER 2026-11-16 better subsidy numbers (Gemini 17x$20, Codex 20x$100, Claude 60x$20 per month); weekly = monthly/4.345. Old: 318.0
+"claude-fable-5-2" = 276.2    # USER 2026-11-16: same Claude Pro pool as Opus (60x$20/month)
+"claude-sonnet-5-5" = 180.0        # est. range 80-300 (Claude Pro)

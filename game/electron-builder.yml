@@ -1,0 +1,26 @@
+appId: org.chronicletactics.game
+productName: Chronicle Tactics
+electronVersion: 45.3.2
+directories:
+  app: .
+  output: ../../release
+asar: true
+npmRebuild: false
+files:
+  - package.json
+  - dist/**/*
+  - '!node_modules/**/*'
+extraResources:
+  - from: ../sidecar
+    to: runtime/sidecar
+  - from: ../native
+    to: runtime/native
+  - from: ../licenses
+    to: licenses
+win:
+  target:
+    - target: portable
+      arch: [x64]
+  signAndEditExecutable: false
+portable:
+  artifactName: Chronicle-Tactics-${version}-portable-${arch}.${ext}
